@@ -64,7 +64,7 @@ function createCommentBox({ id, first_name, last_name, catchphrase, upvotes }) {
   upVoteButton.innerText = "⬆️";
 
   upVoteButton.addEventListener("click", async () => {
-    let getURL = `http://localhost:3000/api/users/${id}`;
+    let getURL = `${url}/api/users/${id}`;
     let option = { method: "GET" };
     const response = await fetch(getURL, option);
     const getData = await response.json();

@@ -133,5 +133,5 @@ app.delete("/api/users/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server is running`);
 });
