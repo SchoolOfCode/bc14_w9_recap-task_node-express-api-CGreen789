@@ -28,7 +28,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://catchphrase-competition.netlify.app",
+      "https://catchphrase-competition.netlify.app/",
     ],
   })
 );
