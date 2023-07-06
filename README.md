@@ -3,6 +3,8 @@ __________
 
 Sam W (https://github.com/sam98963) asked me to collaborate with him on this weekend's tasks and I was very happy to say yes. We worked together in Week 6 and I really enjoyed working with him. We spent some time over the weekend on Zoom and pair programmed this website together.
 
+You can view the site [here](https://catchphrase-competition.netlify.app/)
+
 #### We started with the back-end
 - Creating the functions in users.js
     - Making sure to console.log and node users.js each step of the way to check them
@@ -36,6 +38,7 @@ Sam suggested we frame it as a 'Catchphrase Competition', which would allow user
 - [x] Add CSS to the front-end
 - [ ] Additional routes that include searching the data using query strings
 - [ ] Implementing middleware (start with a simple logger, and then explore what else you can add)
+- [x] Deploy site and server 
 
 
 ### Acknowledgements:

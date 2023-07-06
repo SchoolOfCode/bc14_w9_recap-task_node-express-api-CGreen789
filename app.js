@@ -8,7 +8,7 @@ if(const !== null {
 */
 
 import express from "express";
-import fs from "fs/promises";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -23,6 +23,15 @@ import {
 
 app.use(express.static("public"));
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://catchphrase-competition.netlify.app/",
+    ],
+  })
+);
 
 // app.use("/", (req, res) => {
 //   res.json({
@@ -124,5 +133,5 @@ app.delete("/api/users/:id", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server is running`);
 });
