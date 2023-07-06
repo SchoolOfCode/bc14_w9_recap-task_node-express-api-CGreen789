@@ -17,6 +17,8 @@ function getCatchphrases() {
 
 */
 
+// import { application } from "express";
+
 const url = "http://localhost:3000";
 
 // assign variables to inputs
@@ -49,21 +51,82 @@ async function loadData() {
 // event listener on button
 // return article
 
-function createCommentBox({ id, first_name, last_name, catchphrase }) {
+function createCommentBox({ id, first_name, last_name, catchphrase, upvotes }) {
   const article = document.createElement("article");
+  article.setAttribute("class", "individual-catchphrases");
   const h2 = document.createElement("h2");
   const h3 = document.createElement("h3");
   const upVoteButton = document.createElement("button");
+  const totalUpVotes = document.createElement("p");
 
   h2.innerText = `${first_name} ${last_name}`;
   h3.innerText = catchphrase;
   upVoteButton.innerText = "⬆️";
 
+  upVoteButton.addEventListener("click", async () => {
+    let getURL = `http://localhost:3000/api/users/${id}`;
+    let option = { method: "GET" };
+    const response = await fetch(getURL, option);
+    const getData = await response.json();
+    const newData = { ...getData.payload };
+    newData.upvotes++;
+    console.log(newData);
+
+    let patchOption = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    };
+    const patchResponse = await fetch(getURL, patchOption);
+    const patchData = await patchResponse.json();
+    console.log(patchData);
+    console.log(patchData.payload.upvotes);
+    totalUpVotes.innerText = `Upvotes: ${patchData.payload.upvotes}`;
+    // async function updateText() {
+    //   let newUpvotes = patchData.upvotes;
+    //   console.log(newUpvotes);
+    // }
+    // updateText();
+  });
+
+  totalUpVotes.innerText = `Upvotes: ${upvotes}`;
+
   article.appendChild(h2);
   article.appendChild(h3);
   article.appendChild(upVoteButton);
+  article.appendChild(totalUpVotes);
+  /*
+  function handleDeleteCard(event) {
+    event.preventDefault();
+    let deleteURL = `${url}/api/recipes/${id}`;
+    let option = { method: "DELETE" };
+    deleteRecipe(deleteURL, option);
+  }
 
-  // upVoteButton.addEventListener("click",...)
+  async function deleteRecipe(deleteURL, option) {
+    const response = await fetch(deleteURL, option);
+    const data = await response.json();
+    getRecipes();
+
+    // event.target.parentNode.remove();
+  }
+*/
+
+  // Get request to fetch the data object
+  // Patch request to update the votes
+
+  // Add one to upvote on each button click
+  // async function addOneVote(id) {
+  //   let getURL = `http://localhost:3000/api/users/${id}`;
+  //   let option = { method: "GET" };
+  //   const response = await fetch(getURL, option);
+  //   const getData = await response.json;
+  //   console.log(getData);
+  //   console.log(id);
+
+  //   // const upvotes = getData.upvotes;
+  // }
+  upVoteButton.addEventListener("click", (id) => addOneVote(id));
 
   return article;
 }
@@ -84,12 +147,16 @@ function renderComments(placeholder) {
 //   payload.forEach(renderComments)
 // }
 
-async function getCatchphrases() {
+async function displayCatchphrasesRandomly() {
   const response = await fetch(`${url}/api/users/`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   const { payload } = await response.json();
+
+  payload.sort((a, b) => Math.random() - 0.5);
+  //  randomise comment display
+
   allCatchphrases.innerHTML = "";
   payload.forEach(renderComments);
 }
@@ -142,4 +209,4 @@ async function enterCatchphraseCompetiton() {
 submitButton.addEventListener("click", handleSubmit);
 
 loadData();
-getCatchphrases();
+displayCatchphrasesRandomly();
