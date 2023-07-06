@@ -19,7 +19,7 @@ function getCatchphrases() {
 
 // import { application } from "express";
 
-const url = "http://localhost:3000";
+const url = "https://catchphrasecompetitionserver.onrender.com";
 
 // assign variables to inputs
 
