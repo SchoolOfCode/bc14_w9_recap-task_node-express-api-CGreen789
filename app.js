@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
+      "http://localhost:3000/api/users",
       "https://master--super-cobbler-429a9c.netlify.app",
     ],
   })
